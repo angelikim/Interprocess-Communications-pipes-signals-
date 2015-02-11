@@ -1,0 +1,30 @@
+void create_child(int * pid)
+{
+    int pid=fork();
+	if(pid < 0 ) 
+	    {
+		    cout<<"unable to fork "<<endl;
+	    }	
+	    else if (pid == 0 )
+	    {   
+			cout << argc <<"     WDRDRWD"<<endl;
+            cout<<argv[1]<<endl;
+            char **buff = new char *[argc  ];
+            for(int i = 0; i < argc; i++)
+                buff[i] = new char[15];     
+                buff[argc-1]=NULL;
+            for(int i=1 ; i <argc ; i++ )
+                buff[i-1]= argv[i] ;
+                    //edo kapoios elenxos gia to concurency kai to size tou running gia na deis pou tha mpei
+			execvp(argv[1] ,buff);
+			perror("exec");    
+		}
+		else
+		{
+			int status;
+			if ( waitpid(pid , &status , 0) != pid )
+			    perror("wait" );
+        }
+}
+
+			        /////////////////////////////////////////////////////////
